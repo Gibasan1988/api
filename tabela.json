@@ -46,5 +46,13 @@
         "gols_feitos": 41,
         "gols_sofridos": 28,
         "saldo_gols": 13
+    },
+    {
+        "posicao": 7,
+        "time": "Corinthians",
+        "pontos": 50,
+        "gols_feitos": 38,
+        "gols_sofridos": 35,
+        "saldo_gols": 3
     }
 ]
