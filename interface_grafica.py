@@ -14,8 +14,8 @@ SENHA = os.getenv("API_PASSWORD")
 class AppBrasileirao:
     def __init__(self, root):
         self.root = root
-        self.root.title("Brasileirão API - Dashboard Desktop")
-        self.root.geometry("700x500")
+        self.root.title("Brasileirão API - Dashboard Admin")
+        self.root.geometry("700x600")
         self.root.configure(bg="#f0f0f0")
 
         # Estilo
@@ -38,6 +38,29 @@ class AppBrasileirao:
         
         btn_busca = tk.Button(frame_busca, text="Buscar", command=self.buscar_time, bg="#0078d7", fg="white", font=("Arial", 9, "bold"), padx=15)
         btn_busca.pack(side="left")
+
+        # Frame de Cadastro (Admin)
+        frame_admin = tk.LabelFrame(self.root, text=" Painel Admin - Cadastrar/Atualizar Time ", bg="#f0f0f0", pady=10, padx=10, font=("Arial", 9, "bold"))
+        frame_admin.pack(fill="x", padx=20, pady=5)
+
+        tk.Label(frame_admin, text="Time:", bg="#f0f0f0").grid(row=0, column=0, sticky="w")
+        self.ent_time = tk.Entry(frame_admin, width=15)
+        self.ent_time.grid(row=0, column=1, padx=5)
+
+        tk.Label(frame_admin, text="Pts:", bg="#f0f0f0").grid(row=0, column=2, sticky="w", padx=(10,0))
+        self.ent_pts = tk.Entry(frame_admin, width=5)
+        self.ent_pts.grid(row=0, column=3, padx=5)
+
+        tk.Label(frame_admin, text="GP:", bg="#f0f0f0").grid(row=0, column=4, sticky="w", padx=(10,0))
+        self.ent_gp = tk.Entry(frame_admin, width=5)
+        self.ent_gp.grid(row=0, column=5, padx=5)
+
+        tk.Label(frame_admin, text="GC:", bg="#f0f0f0").grid(row=0, column=6, sticky="w", padx=(10,0))
+        self.ent_gc = tk.Entry(frame_admin, width=5)
+        self.ent_gc.grid(row=0, column=7, padx=5)
+
+        btn_salvar = tk.Button(frame_admin, text="💾 Salvar", command=self.salvar_time, bg="#0078d7", fg="white", font=("Arial", 9, "bold"))
+        btn_salvar.grid(row=0, column=8, padx=15)
 
         # Tabela (Treeview)
         frame_tabela = tk.Frame(self.root)
@@ -108,6 +131,41 @@ class AppBrasileirao:
                 messagebox.showwarning("Aviso", "Time não encontrado.")
         except Exception as e:
             messagebox.showerror("Erro", str(e))
+
+    def salvar_time(self):
+        nome = self.ent_time.get()
+        if not nome:
+            messagebox.showwarning("Aviso", "Digite o nome do time!")
+            return
+            
+        try:
+            dados = {
+                "time": nome,
+                "pontos": int(self.ent_pts.get() or 0),
+                "gols_feitos": int(self.ent_gp.get() or 0),
+                "gols_sofridos": int(self.ent_gc.get() or 0)
+            }
+            
+            response = requests.post(
+                f"{URL_BASE}/atualizar", 
+                json=dados, 
+                auth=HTTPBasicAuth(USUARIO, SENHA)
+            )
+            
+            if response.status_code == 200:
+                messagebox.showinfo("Sucesso", response.json()["mensagem"])
+                self.atualizar_tabela()
+                # Limpa campos
+                self.ent_time.delete(0, tk.END)
+                self.ent_pts.delete(0, tk.END)
+                self.ent_gp.delete(0, tk.END)
+                self.ent_gc.delete(0, tk.END)
+            else:
+                messagebox.showerror("Erro", "Falha ao salvar dados.")
+        except ValueError:
+            messagebox.showerror("Erro", "Pontos e Gols devem ser números!")
+        except Exception as e:
+            messagebox.showerror("Erro de Conexão", str(e))
 
 if __name__ == "__main__":
     root = tk.Tk()
