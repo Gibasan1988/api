@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 # Carrega as credenciais
 load_dotenv()
-URL_BASE = "http://127.0.0.1:8000"
+URL_BASE = "https://api-ib22.onrender.com"
 USUARIO = os.getenv("API_USER")
 SENHA = os.getenv("API_PASSWORD")
 
