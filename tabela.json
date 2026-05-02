@@ -1,0 +1,50 @@
+[
+    {
+        "posicao": 1,
+        "time": "Botafogo",
+        "pontos": 67,
+        "gols_feitos": 52,
+        "gols_sofridos": 26,
+        "saldo_gols": 26
+    },
+    {
+        "posicao": 2,
+        "time": "Palmeiras",
+        "pontos": 64,
+        "gols_feitos": 53,
+        "gols_sofridos": 25,
+        "saldo_gols": 28
+    },
+    {
+        "posicao": 3,
+        "time": "Fortaleza",
+        "pontos": 60,
+        "gols_feitos": 43,
+        "gols_sofridos": 32,
+        "saldo_gols": 11
+    },
+    {
+        "posicao": 4,
+        "time": "Flamengo",
+        "pontos": 58,
+        "gols_feitos": 50,
+        "gols_sofridos": 37,
+        "saldo_gols": 13
+    },
+    {
+        "posicao": 5,
+        "time": "Internacional",
+        "pontos": 56,
+        "gols_feitos": 41,
+        "gols_sofridos": 28,
+        "saldo_gols": 13
+    },
+    {
+        "posicao": 6,
+        "time": "Sport Recife",
+        "pontos": 55,
+        "gols_feitos": 52,
+        "gols_sofridos": 26,
+        "saldo_gols": 26
+    }
+]
